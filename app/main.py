@@ -11,6 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent
 
 origins = [
     "http://localhost:5173",
+    "http://localhost:8000",
     "https://pizza42-spa-f7bb8ac15f77.herokuapp.com",
 ]
 
