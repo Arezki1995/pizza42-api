@@ -1,5 +1,6 @@
 from fastapi import APIRouter
-from fastapi.responses import RedirectResponse
+from fastapi.responses import FileResponse, RedirectResponse
+
 
 common_router = APIRouter(tags=["Common"])
 
@@ -10,3 +11,5 @@ def root():
 @common_router.get("/health")
 def health_check():
     return {"status": "ok"}
+
+
