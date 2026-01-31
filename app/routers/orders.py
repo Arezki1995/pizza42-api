@@ -1,9 +1,14 @@
 from fastapi import APIRouter, HTTPException
 from fastapi import status
+from fastapi import Depends
+
 from typing import List 
+
 from app.models.order import Order, OrderCreate
 
 from app.routers.menu import menu
+
+from app.dependencies.auth_scheme import jwt_required
 
 orders_router = APIRouter(prefix="/orders",tags=["Orders"])
 
@@ -11,7 +16,7 @@ orders : List[Order] = []
 order_id_counter = 1
 
 @orders_router.post("/")
-def create_order(order_input: OrderCreate):
+def create_order(order_input: OrderCreate, authZ_status:dict= Depends(jwt_required(scopes="create:order"))):
     global order_id_counter
     user_sub = "get it from token later"
     total_price = 0.0
@@ -43,5 +48,5 @@ def create_order(order_input: OrderCreate):
 
 
 @orders_router.get("/")
-def get_orders():
+def get_orders(authZ_status:dict= Depends(jwt_required(scopes="read:order"))):
     return {"orders": orders}
