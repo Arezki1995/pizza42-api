@@ -16,9 +16,9 @@ orders : List[Order] = []
 order_id_counter = 1
 
 @orders_router.post("/")
-def create_order(order_input: OrderCreate, authZ_status:dict= Depends(jwt_required(scopes="create:order"))):
+def create_order(order_input: OrderCreate, payload:dict= Depends(jwt_required(scopes=["create:order"]))):
     global order_id_counter
-    user_sub = "get it from token later"
+    user_sub = payload.get("sub") 
     total_price = 0.0
 
     if not order_input.items:
@@ -48,5 +48,5 @@ def create_order(order_input: OrderCreate, authZ_status:dict= Depends(jwt_requir
 
 
 @orders_router.get("/")
-def get_orders(authZ_status:dict= Depends(jwt_required(scopes="read:order"))):
+def get_orders(payload:dict= Depends(jwt_required(scopes=["read:order"]))):
     return {"orders": orders}
