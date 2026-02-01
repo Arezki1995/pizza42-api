@@ -60,12 +60,13 @@ class VerifyJWT:
             return {"status": "error", "type": "UnknownError", "payload": str(error)}
 
         # Step 3: Optional scope verification
+
         if self.scopes:
             result = self._check_claims(
                 payload=payload,
                 claim_name="scope",
                 claim_type=str,
-                expected_value=self.scopes.split(" "),
+                expected_value=self.scopes,
             )
             if result.get("status") == "error":
                 return result
