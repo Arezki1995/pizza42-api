@@ -9,7 +9,6 @@ fastapi==0.128.0
 gunicorn==24.1.1
 h11==0.16.0
 idna==3.11
-jwt==1.4.0
 packaging==26.0
 pycparser==3.0
 pydantic==2.12.5
