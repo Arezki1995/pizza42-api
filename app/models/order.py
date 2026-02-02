@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import List
+from datetime import datetime
 
 class OrderItem(BaseModel):
     pizza_id: int
@@ -14,3 +15,4 @@ class Order(BaseModel):
     user_subject: str
     items: List[OrderItem]
     total_price: float
+    timestamp: datetime

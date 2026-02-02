@@ -10,6 +10,8 @@ from app.routers.menu import menu
 
 from app.dependencies.auth_scheme import jwt_required
 
+from datetime import datetime
+
 orders_router = APIRouter(prefix="/orders",tags=["Orders"])
 
 orders : List[Order] = []
@@ -39,6 +41,7 @@ def create_order(order_input: OrderCreate, payload:dict= Depends(jwt_required(pe
         user_subject=user_sub,
         items=order_input.items,
         total_price=total_price,
+        timestamp=datetime.now()
     )
 
     order_id_counter += 1
