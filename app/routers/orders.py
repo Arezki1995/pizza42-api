@@ -51,5 +51,6 @@ def create_order(order_input: OrderCreate, payload:dict= Depends(jwt_required(pe
 
 
 @orders_router.get("/")
-def get_orders(payload:dict= Depends(jwt_required(permissions=["read:orders"]))):
-    return {"orders": orders}
+def get_orders_of_subject(user_subject:str, payload:dict= Depends(jwt_required(permissions=["read:orders"]))):
+    subject_orders = [order for order in orders if order.user_subject == user_subject ]
+    return {"orders": subject_orders}
