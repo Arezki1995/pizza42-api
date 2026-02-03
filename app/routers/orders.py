@@ -18,7 +18,7 @@ orders : List[Order] = []
 order_id_counter = 1
 
 @orders_router.post("/")
-def create_order(order_input: OrderCreate, payload:dict= Depends(jwt_required(permissions=["create:orders"]))):
+def create_order(order_input: OrderCreate, payload:dict= Depends(jwt_required(scopes=["create:orders"]))):
     global order_id_counter
     user_sub = payload.get("sub") 
     total_price = 0.0
@@ -51,6 +51,7 @@ def create_order(order_input: OrderCreate, payload:dict= Depends(jwt_required(pe
 
 
 @orders_router.get("/")
-def get_orders_of_subject(user_subject:str, payload:dict= Depends(jwt_required(permissions=["read:orders"]))):
+def get_orders_of_subject(user_subject:str, payload:dict= Depends(jwt_required(scopes=["read:orders"]))):
+
     subject_orders = [order for order in orders if order.user_subject == user_subject ]
     return {"orders": subject_orders}
